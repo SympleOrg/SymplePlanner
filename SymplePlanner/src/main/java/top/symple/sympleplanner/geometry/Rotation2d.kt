@@ -16,10 +16,10 @@ data class Rotation2d(val x: Double, val y: Double) {
     operator fun minus(angle: Double) = this - fromAngle(angle)
     operator fun minus(rotation: Rotation2d) = (rotation.inverse() * this)
 
-    operator fun times(vec2d: Vector2d) = Vector2d((x * vec2d.x) - (y * vec2d.y), (y * vec2d.x) + (x * vec2d.y))
+    operator fun times(vec2d: Translation2d) = Translation2d((x * vec2d.x) - (y * vec2d.y), (y * vec2d.x) + (x * vec2d.y))
     operator fun times(rotation: Rotation2d) = Rotation2d((x * rotation.x) - (y * rotation.y), (x * rotation.y) + (y * rotation.x))
 
-    fun toVector() = Vector2d(x, y)
+    fun toVector() = Translation2d(x, y)
     fun inverse() = Rotation2d(x, -y)
 
     fun toAngle() = atan2(y, x)
