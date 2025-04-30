@@ -4,6 +4,8 @@ data class Pose2d(val position: Translation2d, val heading: Rotation2d) {
     companion object {
         fun zero() = Pose2d(Translation2d.zero(), Rotation2d.zero())
 
+        fun from(position: Translation2d, rotation2d: Rotation2d) = Pose2d(position, rotation2d)
+        fun from(x: Double, y: Double, rotation2d: Rotation2d) = Pose2d(Translation2d(x, y), rotation2d)
         fun fromRadians(position: Translation2d, radians: Double) = Pose2d(position, Rotation2d.fromRadians(radians))
         fun fromRadians(x: Double, y: Double, radians: Double) = Pose2d(Translation2d(x, y), Rotation2d.fromRadians(radians))
         fun fromDegrees(position: Translation2d, degrees: Double) = Pose2d(position, Rotation2d.fromDegrees(degrees))
