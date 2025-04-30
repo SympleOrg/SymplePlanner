@@ -14,22 +14,22 @@ data class Translation2d(val x: Double, val y: Double) {
         fun fromPolar(radius: Double, rotation2d: Rotation2d) = Translation2d(radius * rotation2d.cosVal, radius * rotation2d.sinVal)
     }
 
-    operator fun plus(vec2d: Translation2d) = Translation2d(x + vec2d.x, y + vec2d.y)
+    operator fun plus(translation2d: Translation2d) = Translation2d(x + translation2d.x, y + translation2d.y)
 
-    operator fun minus(vec2d: Translation2d) = Translation2d(x - vec2d.x, y - vec2d.y)
+    operator fun minus(translation2d: Translation2d) = Translation2d(x - translation2d.x, y - translation2d.y)
 
     operator fun unaryMinus() = Translation2d(-x, -y)
 
     operator fun times(num: Double) = Translation2d(x * num, y * num)
-    operator fun times(vec2d: Translation2d) = Translation2d(x * vec2d.x, y * vec2d.y)
+    operator fun times(translation2d: Translation2d) = Translation2d(x * translation2d.x, y * translation2d.y)
     operator fun div(num: Double) = Translation2d(x / num, y / num)
-    operator fun div(vec2d: Translation2d) = Translation2d(x / vec2d.x, y / vec2d.y)
+    operator fun div(translation2d: Translation2d) = Translation2d(x / translation2d.x, y / translation2d.y)
 
     fun offsetBy(offset: Double) = Translation2d(x + offset, y + offset)
 
-    fun dot(vec2d: Translation2d) = x * vec2d.x + y * vec2d.y
+    fun dot(translation2d: Translation2d) = x * translation2d.x + y * translation2d.y
     fun norm() = hypot(x, y)
-    fun distanceTo(vec2d: Translation2d) = hypot(x - vec2d.x, y - vec2d.y)
+    fun distanceTo(translation2d: Translation2d) = hypot(x - translation2d.x, y - translation2d.y)
 
     fun epsilonEquals(translation2d: Translation2d, epsilon: Double = 1e-6) = abs(x - translation2d.x) <= epsilon && abs(y - translation2d.y) <= epsilon
 

@@ -9,15 +9,15 @@ import kotlin.math.sin
 data class Rotation2d(val cosVal: Double, val sinVal: Double) {
     companion object {
         fun zero() = Rotation2d(1.0, 0.0)
-        fun fromRadians(theta: Double) = Rotation2d(cos(theta), sin(theta))
-        fun fromDegrees(theta: Double) = Rotation2d(cos(Math.toRadians(theta)), sin(Math.toRadians(theta)))
+        fun fromRadians(radians: Double) = Rotation2d(cos(radians), sin(radians))
+        fun fromDegrees(degrees: Double) = Rotation2d(cos(Math.toRadians(degrees)), sin(Math.toRadians(degrees)))
     }
 
-    operator fun plus(rotation: Rotation2d) = this * rotation
-    operator fun minus(rotation: Rotation2d) = this * rotation.inverse()
+    operator fun plus(rotation2d: Rotation2d) = this * rotation2d
+    operator fun minus(rotation2d: Rotation2d) = this * rotation2d.inverse()
 
-    operator fun times(vec2d: Translation2d) = Translation2d((cosVal * vec2d.x) - (sinVal * vec2d.y), (sinVal * vec2d.x) + (cosVal * vec2d.y))
-    operator fun times(rotation: Rotation2d) = Rotation2d((cosVal * rotation.cosVal) - (sinVal * rotation.sinVal), (cosVal * rotation.sinVal) + (sinVal * rotation.cosVal))
+    operator fun times(translation2d: Translation2d) = Translation2d((cosVal * translation2d.x) - (sinVal * translation2d.y), (sinVal * translation2d.x) + (cosVal * translation2d.y))
+    operator fun times(rotation2d: Rotation2d) = Rotation2d((cosVal * rotation2d.cosVal) - (sinVal * rotation2d.sinVal), (cosVal * rotation2d.sinVal) + (sinVal * rotation2d.cosVal))
 
     fun inverse() = fromRadians(-toRadians())
 
