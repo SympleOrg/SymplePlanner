@@ -1,5 +1,6 @@
 package top.symple.sympleplanner.geometry
 
+import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.hypot
@@ -31,6 +32,7 @@ data class Rotation2d(val cosVal: Double, val sinVal: Double) {
     fun asTranslation2d() = Translation2d(cosVal, sinVal)
     fun toRadians() = atan2(sinVal, cosVal)
     fun toDegrees() = Math.toDegrees(toRadians())
+    fun epsilonEquals(rotation2d: Rotation2d, epsilon: Double = 1e-6) = abs(cosVal - rotation2d.cosVal) <= epsilon && abs(sinVal - rotation2d.sinVal) <= epsilon
 
     override fun toString() = "Rotation2d(cosVal = $cosVal, sinVal = $sinVal, radians = ${toRadians()} (${toDegrees()}°))"
 }

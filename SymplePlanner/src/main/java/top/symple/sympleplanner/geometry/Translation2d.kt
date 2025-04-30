@@ -1,5 +1,6 @@
 package top.symple.sympleplanner.geometry
 
+import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.sin
@@ -29,6 +30,8 @@ data class Translation2d(val x: Double, val y: Double) {
     fun dot(vec2d: Translation2d) = x * vec2d.x + y * vec2d.y
     fun norm() = hypot(x, y)
     fun distanceTo(vec2d: Translation2d) = hypot(x - vec2d.x, y - vec2d.y)
+
+    fun epsilonEquals(translation2d: Translation2d, epsilon: Double = 1e-6) = abs(x - translation2d.x) <= epsilon && abs(y - translation2d.y) <= epsilon
 
     fun normalize(): Translation2d {
         val n = norm()
