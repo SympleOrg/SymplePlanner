@@ -1,7 +1,7 @@
 package top.symple.sympleplanner.geometry
 
 data class Pose2d(val pos: Translation2d, val heading: Rotation2d) {
-    constructor(pos: Translation2d, heading: Double) : this(pos, Rotation2d.fromAngle(heading))
+    constructor(pos: Translation2d, heading: Double) : this(pos, Rotation2d.fromRadians(heading))
     constructor(x: Double, y: Double, heading: Double) : this(Translation2d(x, y), heading)
 
     companion object {

@@ -10,7 +10,7 @@ data class Translation2d(val x: Double, val y: Double) {
 
         fun from(x: Double, y: Double) = Translation2d(x, y)
         fun fromPolar(radius: Double, theta: Double) = Translation2d(radius * cos(theta), radius * sin(theta))
-        fun fromPolar(radius: Double, rotation2d: Rotation2d) = Translation2d(radius * rotation2d.x, radius * rotation2d.y)
+        fun fromPolar(radius: Double, rotation2d: Rotation2d) = Translation2d(radius * rotation2d.cosVal, radius * rotation2d.sinVal)
     }
 
     operator fun plus(vec2d: Translation2d) = Translation2d(x + vec2d.x, y + vec2d.y)
