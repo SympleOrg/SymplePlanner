@@ -16,7 +16,7 @@ data class Rotation2d(val cosVal: Double, val sinVal: Double) {
     operator fun plus(rotation2d: Rotation2d) = this * rotation2d
     operator fun minus(rotation2d: Rotation2d) = this * rotation2d.inverse()
 
-    operator fun times(translation2d: Translation2d) = Translation2d((cosVal * translation2d.x) - (sinVal * translation2d.y), (sinVal * translation2d.x) + (cosVal * translation2d.y))
+    operator fun times(translation2d: Translation2d) = Rotation2d((cosVal * translation2d.x) - (sinVal * translation2d.y), (sinVal * translation2d.x) + (cosVal * translation2d.y))
     operator fun times(rotation2d: Rotation2d) = Rotation2d((cosVal * rotation2d.cosVal) - (sinVal * rotation2d.sinVal), (cosVal * rotation2d.sinVal) + (sinVal * rotation2d.cosVal))
 
     fun inverse() = Rotation2d.fromRadians(-toRadians())
