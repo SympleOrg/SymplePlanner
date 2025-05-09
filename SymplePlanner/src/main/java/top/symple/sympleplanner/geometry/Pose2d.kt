@@ -18,7 +18,10 @@ data class Pose2d(val position: Translation2d, val heading: Rotation2d) {
     fun transformBy(pose2d: Pose2d) = Pose2d(heading * pose2d.position + position, heading * pose2d.heading)
     fun transformBy(translation2d: Translation2d) = heading * translation2d + position
 
-    fun inverse() = Pose2d(heading.inverse() * -position, heading.inverse())
+    fun inverse(): Pose2d {
+        val invHeading = heading.inverse();
+        return Pose2d(invHeading * -position, invHeading)
+    }
 
     fun epsilonEquals(pose2d: Pose2d, epsilon: Double = 1e-6) = position.epsilonEquals(pose2d.position, epsilon) && heading.epsilonEquals(pose2d.heading, epsilon)
     fun normalize() = Pose2d(position, heading.normalize())
