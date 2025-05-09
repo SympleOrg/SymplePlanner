@@ -16,7 +16,7 @@ data class Pose2d(val position: Translation2d, val heading: Rotation2d) {
     operator fun minus(pose2d: Pose2d) = this.inverse().transformBy(pose2d)
 
     fun transformBy(pose2d: Pose2d) = Pose2d(heading * pose2d.position + position, heading * pose2d.heading)
-    fun transformBy(translation2d: Translation2d) = heading * translation2d + position
+    fun transformBy(translation2d: Translation2d) = Pose2d(heading * translation2d + position, heading)
 
     fun inverse(): Pose2d {
         val invHeading = heading.inverse();
