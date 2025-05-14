@@ -15,12 +15,12 @@ data class Pose2d(val position: Translation2d, val heading: Rotation2d) {
     operator fun plus(pose2d: Pose2d) = this.transformBy(pose2d)
     operator fun minus(pose2d: Pose2d) = this.inverse().transformBy(pose2d)
 
-    fun transformBy(pose2d: Pose2d) = Pose2d(heading * pose2d.position + position, heading * pose2d.heading)
-    fun transformBy(translation2d: Translation2d) = Pose2d(heading * translation2d + position, heading)
+    fun transformBy(pose2d: Pose2d) = Pose2d((heading * pose2d.position).asTranslation2d() + position, heading * pose2d.heading)
+    fun transformBy(translation2d: Translation2d) = Pose2d((heading * translation2d).asTranslation2d() + position, heading)
 
     fun inverse(): Pose2d {
         val invHeading = heading.inverse();
-        return Pose2d(invHeading * -position, invHeading)
+        return Pose2d((invHeading * -position).asTranslation2d(), invHeading)
     }
 
     fun epsilonEquals(pose2d: Pose2d, epsilon: Double = 1e-6) = position.epsilonEquals(pose2d.position, epsilon) && heading.epsilonEquals(pose2d.heading, epsilon)
