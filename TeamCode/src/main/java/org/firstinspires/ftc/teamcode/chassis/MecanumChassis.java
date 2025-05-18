@@ -9,16 +9,23 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import top.symple.sympleplanner.interfaces.IDriveTrain;
 
 public class MecanumChassis extends SubsystemBase implements IDriveTrain {
+    public static class Constants {
+        public static final String FRONT_LEFT_MOTOR_ID = "dt_front_left";
+        public static final String FRONT_RIGHT_MOTOR_ID = "dt_front_right";
+        public static final String BACK_LEFT_MOTOR_ID = "dt_back_left";
+        public static final String BACK_RIGHT_MOTOR_ID = "dt_back_right";
+    }
+
     private final MotorEx frontLeftMotor;
     private final MotorEx frontRightMotor;
     private final MotorEx backLeftMotor;
     private final MotorEx backRightMotor;
 
     public MecanumChassis(HardwareMap hardwareMap) {
-        this.frontLeftMotor = new MotorEx(hardwareMap, "leg_front_left");
-        this.frontRightMotor = new MotorEx(hardwareMap, "leg_front_right");
-        this.backLeftMotor = new MotorEx(hardwareMap, "leg_back_left");
-        this.backRightMotor = new MotorEx(hardwareMap, "leg_back_right");
+        this.frontLeftMotor = new MotorEx(hardwareMap, Constants.FRONT_LEFT_MOTOR_ID);
+        this.frontRightMotor = new MotorEx(hardwareMap, Constants.FRONT_RIGHT_MOTOR_ID);
+        this.backLeftMotor = new MotorEx(hardwareMap, Constants.BACK_LEFT_MOTOR_ID);
+        this.backRightMotor = new MotorEx(hardwareMap, Constants.BACK_RIGHT_MOTOR_ID);
     }
 
     @Override
