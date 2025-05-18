@@ -6,11 +6,10 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import top.symple.sympleplanner.geometry.Translation2d;
-import top.symple.sympleplanner.interfaces.Chassis;
+import top.symple.sympleplanner.interfaces.IDriveTrain;
 import top.symple.sympleplanner.util.MotorPowerSet;
 
-public class MecanumChassis extends SubsystemBase implements Chassis {
+public class MecanumChassis extends SubsystemBase implements IDriveTrain {
     private final MotorEx frontLeftMotor;
     private final MotorEx frontRightMotor;
     private final MotorEx backLeftMotor;

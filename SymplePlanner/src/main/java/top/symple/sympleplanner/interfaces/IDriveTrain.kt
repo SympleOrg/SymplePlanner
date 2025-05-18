@@ -2,7 +2,7 @@ package top.symple.sympleplanner.interfaces
 
 import top.symple.sympleplanner.util.MotorPowerSet
 
-interface Chassis {
+interface IDriveTrain {
     /**
      * @param power Contains the power values for all four motors.
      */
