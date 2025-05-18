@@ -7,7 +7,6 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import top.symple.sympleplanner.interfaces.IDriveTrain;
-import top.symple.sympleplanner.util.MotorPowerSet;
 
 public class MecanumChassis extends SubsystemBase implements IDriveTrain {
     private final MotorEx frontLeftMotor;
@@ -23,10 +22,10 @@ public class MecanumChassis extends SubsystemBase implements IDriveTrain {
     }
 
     @Override
-    public void setPower(@NonNull MotorPowerSet power) {
-        this.frontLeftMotor.set(power.getFrontLeft());
-        this.frontRightMotor.set(power.getFrontRight());
-        this.backLeftMotor.set(power.getBackLeft());
-        this.backRightMotor.set(power.getBackRight());
+    public void setPower(@NonNull int[] power) {
+        this.frontLeftMotor.set(power[0]);
+        this.frontRightMotor.set(power[1]);
+        this.backLeftMotor.set(power[2]);
+        this.backRightMotor.set(power[3]);
     }
 }
