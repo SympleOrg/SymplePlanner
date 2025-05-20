@@ -8,9 +8,9 @@ import kotlin.math.sin
 
 data class Rotation2d(val cosVal: Double, val sinVal: Double) {
     companion object {
-        fun zero() = Rotation2d(1.0, 0.0)
-        fun fromRadians(radians: Double) = Rotation2d(cos(radians), sin(radians))
-        fun fromDegrees(degrees: Double) = Rotation2d(cos(Math.toRadians(degrees)), sin(Math.toRadians(degrees)))
+        @JvmStatic fun zero() = Rotation2d(1.0, 0.0)
+        @JvmStatic fun fromRadians(radians: Double) = Rotation2d(cos(radians), sin(radians))
+        @JvmStatic fun fromDegrees(degrees: Double) = Rotation2d(cos(Math.toRadians(degrees)), sin(Math.toRadians(degrees)))
     }
 
     operator fun plus(rotation2d: Rotation2d) = this * rotation2d

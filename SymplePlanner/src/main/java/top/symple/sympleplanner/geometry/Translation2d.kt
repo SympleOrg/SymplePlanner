@@ -7,11 +7,11 @@ import kotlin.math.sin
 
 data class Translation2d(val x: Double, val y: Double) {
     companion object {
-        fun zero() = Translation2d(0.0, 0.0)
+        @JvmStatic fun zero() = Translation2d(0.0, 0.0)
 
-        fun from(x: Double, y: Double) = Translation2d(x, y)
-        fun fromPolar(radius: Double, theta: Double) = Translation2d(radius * cos(theta), radius * sin(theta))
-        fun fromPolar(radius: Double, rotation2d: Rotation2d) = Translation2d(radius * rotation2d.cosVal, radius * rotation2d.sinVal)
+        @JvmStatic fun from(x: Double, y: Double) = Translation2d(x, y)
+        @JvmStatic fun fromPolar(radius: Double, theta: Double) = Translation2d(radius * cos(theta), radius * sin(theta))
+        @JvmStatic fun fromPolar(radius: Double, rotation2d: Rotation2d) = Translation2d(radius * rotation2d.cosVal, radius * rotation2d.sinVal)
     }
 
     operator fun plus(translation2d: Translation2d) = Translation2d(x + translation2d.x, y + translation2d.y)
@@ -22,6 +22,7 @@ data class Translation2d(val x: Double, val y: Double) {
 
     operator fun times(num: Double) = Translation2d(x * num, y * num)
     operator fun times(translation2d: Translation2d) = Translation2d(x * translation2d.x, y * translation2d.y)
+    operator fun times(rotation2d: Rotation2d) = (rotation2d * this).asTranslation2d()
     operator fun div(num: Double) = Translation2d(x / num, y / num)
     operator fun div(translation2d: Translation2d) = Translation2d(x / translation2d.x, y / translation2d.y)
 
