@@ -22,6 +22,7 @@ data class Translation2d(val x: Double, val y: Double) {
 
     operator fun times(num: Double) = Translation2d(x * num, y * num)
     operator fun times(translation2d: Translation2d) = Translation2d(x * translation2d.x, y * translation2d.y)
+    operator fun times(rotation2d: Rotation2d) = (rotation2d * this).asTranslation2d()
     operator fun div(num: Double) = Translation2d(x / num, y / num)
     operator fun div(translation2d: Translation2d) = Translation2d(x / translation2d.x, y / translation2d.y)
 
