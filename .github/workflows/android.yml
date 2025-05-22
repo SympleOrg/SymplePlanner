@@ -23,4 +23,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew clean build --stacktrace
+      env:
+        GRADLE_USER_HOME: ${{ runner.temp }}/.gradle
