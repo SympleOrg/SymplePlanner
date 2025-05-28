@@ -26,7 +26,11 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
         public static final RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIRECTION = RevHubOrientationOnRobot.UsbFacingDirection.UP;
         public static final ImuType IMU_TYPE = ImuType.BHI260;
 
-        public static final double LATERAL_OFFSET = 0.2; // in meters
+        public static final double LATERAL_OFFSET_METER = 0.2; // in meters
+        public static final double WHEEL_RADIUS_METER = 0.025; // in meters
+
+        public static final double GEAR_RATIO = 1;
+        public static final double TICKS_PER_REV = 2000;
 
         public enum ImuType {
             BNO055,
@@ -67,12 +71,12 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
 
     @Override
     public void update() {
-        int deltaForward = this.forwardEncoder.getPosition() - this.lastForwardEncoderPos;
-        int deltaLateral = this.lateralEncode.getPosition() - this.lastLateralEncoderPos;
+        double deltaForward = ticksToMeters(this.forwardEncoder.getPosition() - this.lastForwardEncoderPos);
+        double deltaLateral = ticksToMeters(this.lateralEncode.getPosition() - this.lastLateralEncoderPos);
         double deltaHeading = this.getImuRotation() - lastHeading;
 
         double deltaY = deltaForward;
-        double deltaX = deltaLateral - Constants.LATERAL_OFFSET * deltaHeading;
+        double deltaX = deltaLateral - Constants.LATERAL_OFFSET_METER * deltaHeading;
 
         Translation2d deltaRobotPos = Translation2d.from(deltaX, deltaY);
         Translation2d deltaFieldPos = deltaRobotPos.times(this.currentPose.getHeading());
@@ -89,5 +93,9 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
 
     private double getImuRotation() {
         return this.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+    }
+
+    private double ticksToMeters(double ticks) {
+        return (ticks / Constants.TICKS_PER_REV) * 2 * Math.PI * Constants.WHEEL_RADIUS_METER * Constants.GEAR_RATIO;
     }
 }
