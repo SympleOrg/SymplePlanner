@@ -39,7 +39,7 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
     }
 
     private final Motor.Encoder forwardEncoder;
-    private final Motor.Encoder lateralEncode;
+    private final Motor.Encoder lateralEncoder;
     private final IMU imu;
 
     private final double startingHeading;
@@ -52,7 +52,7 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
 
     public TwoDeadWheelWithGyroLocalizer(HardwareMap hardwareMap, Pose2d initPose) {
         this.forwardEncoder = hardwareMap.get(MotorEx.class, Constants.FORWARD_ENCODER_ID).encoder;
-        this.lateralEncode = hardwareMap.get(MotorEx.class, Constants.LATERAL_ENCODER_ID).encoder;
+        this.lateralEncoder = hardwareMap.get(MotorEx.class, Constants.LATERAL_ENCODER_ID).encoder;
         this.imu = hardwareMap.get(Constants.IMU_TYPE == Constants.ImuType.BHI260 ? BHI260IMU.class : BNO055IMUNew.class, Constants.IMU_ID);
         this.imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(Constants.LOGO_FACING_DIRECTION, Constants.USB_FACING_DIRECTION)));
         this.currentPose = initPose;
@@ -60,7 +60,7 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
         this.startingHeading = this.getImuRotation();
 
         this.lastForwardEncoderPos = this.forwardEncoder.getPosition();
-        this.lastLateralEncoderPos = this.lateralEncode.getPosition();
+        this.lastLateralEncoderPos = this.lateralEncoder.getPosition();
         this.lastHeading = this.getImuRotation();
     }
 
@@ -72,7 +72,7 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
     @Override
     public void update() {
         double deltaForward = ticksToMeters(this.forwardEncoder.getPosition() - this.lastForwardEncoderPos);
-        double deltaLateral = ticksToMeters(this.lateralEncode.getPosition() - this.lastLateralEncoderPos);
+        double deltaLateral = ticksToMeters(this.lateralEncoder.getPosition() - this.lastLateralEncoderPos);
         double deltaHeading = this.getImuRotation() - lastHeading;
 
         double deltaY = deltaForward;
@@ -87,7 +87,7 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
         );
 
         this.lastForwardEncoderPos = this.forwardEncoder.getPosition();
-        this.lastLateralEncoderPos = this.lateralEncode.getPosition();
+        this.lastLateralEncoderPos = this.lateralEncoder.getPosition();
         this.lastHeading = this.getImuRotation();
     }
 

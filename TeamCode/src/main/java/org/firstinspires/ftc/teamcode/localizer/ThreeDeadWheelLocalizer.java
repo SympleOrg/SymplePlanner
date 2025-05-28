@@ -27,7 +27,7 @@ public class ThreeDeadWheelLocalizer implements ILocalizer {
 
     private final Motor.Encoder leftEncoder;
     private final Motor.Encoder rightEncoder;
-    private final Motor.Encoder lateralEncode;
+    private final Motor.Encoder lateralEncoder;
 
     private int lastLeftEncoderPos = 0;
     private int lastRightEncoderPos = 0;
@@ -38,13 +38,13 @@ public class ThreeDeadWheelLocalizer implements ILocalizer {
     public ThreeDeadWheelLocalizer(HardwareMap hardwareMap, Pose2d initPose) {
         this.leftEncoder = hardwareMap.get(MotorEx.class, Constants.LEFT_ENCODER_ID).encoder;
         this.rightEncoder = hardwareMap.get(MotorEx.class, Constants.RIGHT_ENCODER_ID).encoder;
-        this.lateralEncode = hardwareMap.get(MotorEx.class, Constants.LATERAL_ENCODER_ID).encoder;
+        this.lateralEncoder = hardwareMap.get(MotorEx.class, Constants.LATERAL_ENCODER_ID).encoder;
 
         this.currentPose = initPose;
 
         this.lastLeftEncoderPos = this.leftEncoder.getPosition();
         this.lastRightEncoderPos = this.rightEncoder.getPosition();
-        this.lastLateralEncoderPos = this.lateralEncode.getPosition();
+        this.lastLateralEncoderPos = this.lateralEncoder.getPosition();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ThreeDeadWheelLocalizer implements ILocalizer {
     public void update() {
         double deltaLeft = ticksToMeters(this.leftEncoder.getPosition() - this.lastLeftEncoderPos);
         double deltaRight = ticksToMeters(this.rightEncoder.getPosition() - this.lastRightEncoderPos);
-        double deltaLateral = ticksToMeters(this.lateralEncode.getPosition() - this.lastLateralEncoderPos);
+        double deltaLateral = ticksToMeters(this.lateralEncoder.getPosition() - this.lastLateralEncoderPos);
 
         double deltaHeading = (deltaRight - deltaLeft) / Constants.TRACK_WIDTH_METER;
         double deltaY = (deltaLeft + deltaRight) / 2f;
@@ -72,7 +72,7 @@ public class ThreeDeadWheelLocalizer implements ILocalizer {
 
         this.lastLeftEncoderPos = this.leftEncoder.getPosition();
         this.lastRightEncoderPos = this.rightEncoder.getPosition();
-        this.lastLateralEncoderPos = this.lateralEncode.getPosition();
+        this.lastLateralEncoderPos = this.lateralEncoder.getPosition();
     }
 
     private double ticksToMeters(double ticks) {
