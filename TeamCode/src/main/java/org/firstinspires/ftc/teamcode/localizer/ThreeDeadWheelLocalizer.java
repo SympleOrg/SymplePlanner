@@ -29,9 +29,9 @@ public class ThreeDeadWheelLocalizer implements ILocalizer {
     private final Motor.Encoder rightEncoder;
     private final Motor.Encoder lateralEncoder;
 
-    private int lastLeftEncoderPos = 0;
-    private int lastRightEncoderPos = 0;
-    private int lastLateralEncoderPos = 0;
+    private int lastLeftEncoderPos;
+    private int lastRightEncoderPos;
+    private int lastLateralEncoderPos;
 
     private Pose2d currentPose;
 
@@ -42,6 +42,11 @@ public class ThreeDeadWheelLocalizer implements ILocalizer {
 
         this.currentPose = initPose;
 
+        this.leftEncoder.reset();
+        this.rightEncoder.reset();
+        this.lateralEncoder.reset();
+
+        // We should keep this just to be safe
         this.lastLeftEncoderPos = this.leftEncoder.getPosition();
         this.lastRightEncoderPos = this.rightEncoder.getPosition();
         this.lastLateralEncoderPos = this.lateralEncoder.getPosition();

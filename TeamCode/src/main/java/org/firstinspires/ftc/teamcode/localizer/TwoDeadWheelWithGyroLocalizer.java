@@ -57,8 +57,13 @@ public class TwoDeadWheelWithGyroLocalizer implements ILocalizer {
         this.imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(Constants.LOGO_FACING_DIRECTION, Constants.USB_FACING_DIRECTION)));
         this.currentPose = initPose;
 
+        this.imu.resetYaw();
+        this.forwardEncoder.reset();
+        this.lateralEncoder.reset();
+
         this.startingHeading = this.getImuRotation();
 
+        // We should keep this just to be safe
         this.lastForwardEncoderPos = this.forwardEncoder.getPosition();
         this.lastLateralEncoderPos = this.lateralEncoder.getPosition();
         this.lastHeading = this.getImuRotation();
