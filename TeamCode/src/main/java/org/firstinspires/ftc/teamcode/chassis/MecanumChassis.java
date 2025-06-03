@@ -6,7 +6,11 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.localizer.ThreeDeadWheelLocalizer;
+
+import top.symple.sympleplanner.geometry.Pose2d;
 import top.symple.sympleplanner.interfaces.IDriveTrain;
+import top.symple.sympleplanner.interfaces.ILocalizer;
 
 public class MecanumChassis extends SubsystemBase implements IDriveTrain {
     public static class Constants {
@@ -21,11 +25,15 @@ public class MecanumChassis extends SubsystemBase implements IDriveTrain {
     private final MotorEx backLeftMotor;
     private final MotorEx backRightMotor;
 
+    private final ILocalizer localizer;
+
     public MecanumChassis(HardwareMap hardwareMap) {
         this.frontLeftMotor = new MotorEx(hardwareMap, Constants.FRONT_LEFT_MOTOR_ID);
         this.frontRightMotor = new MotorEx(hardwareMap, Constants.FRONT_RIGHT_MOTOR_ID);
         this.backLeftMotor = new MotorEx(hardwareMap, Constants.BACK_LEFT_MOTOR_ID);
         this.backRightMotor = new MotorEx(hardwareMap, Constants.BACK_RIGHT_MOTOR_ID);
+
+        this.localizer = new ThreeDeadWheelLocalizer(hardwareMap, Pose2d.zero());
     }
 
     @Override
@@ -34,5 +42,14 @@ public class MecanumChassis extends SubsystemBase implements IDriveTrain {
         this.frontRightMotor.set(power[1]);
         this.backLeftMotor.set(power[2]);
         this.backRightMotor.set(power[3]);
+    }
+
+    @Override
+    public void periodic() {
+        this.localizer.update();
+    }
+
+    public Pose2d getCurrentPosition() {
+        return this.localizer.getPose();
     }
 }
