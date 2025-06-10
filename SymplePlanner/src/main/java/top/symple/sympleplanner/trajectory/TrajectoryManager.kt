@@ -44,14 +44,9 @@ abstract class TrajectoryManager(val name: String) {
         driveTrain.setPower(wheelSpeeds)
 
         // TODO: add tolerance constant
-        if (isNearState(currentTrajectoryState, currentPos, 0.01)) {
+        if (currentTrajectoryState.isNearState(currentPos.position, 0.01)) {
             headIdx += 1;
         }
-    }
-
-    protected fun isNearState(state: TrajectoryState, currentPosition: Pose2d, tolerance: Double = 0.01): Boolean {
-        return state.pose2d == null
-                || state.pose2d.position.distanceTo(currentPosition.position) <= tolerance;
     }
 
     open fun process(pos: Pose2d, trajectoryState: TrajectoryState): DoubleArray {
