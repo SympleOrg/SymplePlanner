@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.chassis.MecanumChassis;
 
 @TeleOp(name = "Mecanum Chassis Test", group = "sympleplanner")
-public class MecanumChassisTestOpMode extends CommandOpMode {
+public class MecanumChassisTestOpMode extends CommandOpModeEx {
     private MecanumChassis mecanumChassis;
 
     @Override
     public void initialize() {
-        this.mecanumChassis = new MecanumChassis(hardwareMap);
+        this.mecanumChassis = new MecanumChassis(hardwareMap, telemetry);
     }
 }
