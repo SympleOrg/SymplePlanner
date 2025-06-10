@@ -57,6 +57,8 @@ abstract class TrajectoryManager(val name: String) {
         val errorTheta = desiredPos.heading.toRadians() - pos.heading.toRadians();
 
 
+        // TODO: Create PIDF class and put it here
+        // the '1's are the Kp, this is temporary!
         val velocityX = 1 * errorX;
         val velocityY = 1 * errorY;
         val velocityTheta = 1 * errorTheta;
