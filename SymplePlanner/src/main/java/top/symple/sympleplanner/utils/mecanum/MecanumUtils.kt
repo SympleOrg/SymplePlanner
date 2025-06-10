@@ -18,11 +18,11 @@ fun mecanumWheelSpeeds(vx: Double, vy: Double, omega: Double): DoubleArray {
     }
 
 fun fieldToRobotRelativeVelocity(vx: Double, vy: Double, heading: Double): Pair<Double, Double> {
-    val cos = cos(-heading)
-    val sin = sin(-heading)
+    val cosValue = cos(-heading)
+    val sinValue = sin(-heading)
 
-    val robotVx = vx * cos - vy * sin
-    val robotVy = vx * sin + vy * cos
+    val robotVx = vx * cosValue - vy * sinValue
+    val robotVy = vx * sinValue + vy * cosValue
 
     return Pair(robotVx, robotVy)
 }
