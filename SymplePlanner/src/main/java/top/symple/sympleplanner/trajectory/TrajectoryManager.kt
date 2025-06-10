@@ -9,10 +9,18 @@ import top.symple.sympleplanner.utils.mecanum.mecanumWheelSpeeds
 abstract class TrajectoryManager(val name: String) {
     var trajectory: List<TrajectoryState> = emptyList()
         private set;
-    var headIdx: Int = 0;
+    private var headIdx: Int = 0;
 
     init {
         initialize();
+    }
+
+    /**
+     * This is the initialize method for this class.
+     * Call this to initialize the trajectory
+     */
+    fun initialize() {
+        this.trajectory = setTrajectory();
     }
 
     fun execute(localizer: ILocalizer, driveTrain: IDriveTrain) {
@@ -33,8 +41,6 @@ abstract class TrajectoryManager(val name: String) {
         }
     }
 
-
-
     open fun process(pos: Pose2d, trajectoryState: TrajectoryState): DoubleArray{
         val desiredPos = trajectoryState.pose2d ?: return DoubleArray(4);
 
@@ -54,15 +60,6 @@ abstract class TrajectoryManager(val name: String) {
         val wheelSpeeds = mecanumWheelSpeeds(robotVx, robotVy, velocityTheta)
 
         return wheelSpeeds;
-    }
-
-
-    /**
-     * This is the initialize method for this class.
-     * Call this to initialize the trajectory
-     */
-    fun initialize() {
-        this.trajectory = setTrajectory();
     }
 
     /**
