@@ -44,7 +44,7 @@ abstract class TrajectoryManager(val name: String) {
         driveTrain.setPower(wheelSpeeds)
 
         // TODO: add tolerance constant
-        if (currentTrajectoryState.isNearState(currentPos.position, 0.01)) {
+        if (currentTrajectoryState.isAtPosition(currentPos.position, 0.01)) {
             headIdx += 1;
         }
     }

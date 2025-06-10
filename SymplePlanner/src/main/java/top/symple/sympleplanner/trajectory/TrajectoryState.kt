@@ -9,7 +9,7 @@ data class TrajectoryState(val pose2d: Pose2d?, val action: IAction?, @get:JvmNa
     constructor(pose2d: Pose2d) : this(pose2d, null, true, null)
     constructor(pose2d: Pose2d, desiredRobotVelocityMPS: Double) : this(pose2d, null, true, desiredRobotVelocityMPS)
 
-    fun isNearState(currentPosition: Translation2d, tolerance: Double = 0.01): Boolean {
+    fun isAtPosition(currentPosition: Translation2d, tolerance: Double = 0.01): Boolean {
         return this.pose2d == null
                 || this.pose2d.position.distanceTo(currentPosition) <= tolerance;
     }
