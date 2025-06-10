@@ -3,7 +3,7 @@ package top.symple.sympleplanner.trajectory
 import top.symple.sympleplanner.geometry.Pose2d
 import top.symple.sympleplanner.interfaces.IDriveTrain
 import top.symple.sympleplanner.interfaces.ILocalizer
-import top.symple.sympleplanner.utils.mecanum.fieldToRobotRelative
+import top.symple.sympleplanner.utils.mecanum.fieldToRobotRelativeVelocity
 import top.symple.sympleplanner.utils.mecanum.mecanumWheelSpeeds
 
 abstract class TrajectoryManager(val name: String) {
@@ -63,7 +63,7 @@ abstract class TrajectoryManager(val name: String) {
         val velocityY = 1 * errorY;
         val velocityTheta = 1 * errorTheta;
 
-        val (robotVx, robotVy) = fieldToRobotRelative(
+        val (robotVx, robotVy) = fieldToRobotRelativeVelocity(
             velocityX, velocityY, pos.heading.toRadians()
         )
 

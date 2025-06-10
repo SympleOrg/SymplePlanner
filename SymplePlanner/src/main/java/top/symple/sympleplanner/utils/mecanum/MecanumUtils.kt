@@ -18,7 +18,7 @@ fun mecanumWheelSpeeds(vx: Double, vy: Double, omega: Double): DoubleArray {
         return doubleArrayOf(fl, fr, bl, br).map { it * scale }.toDoubleArray()
     }
 
-fun fieldToRobotRelative(vx: Double, vy: Double, heading: Double): Pair<Double, Double> {
+fun fieldToRobotRelativeVelocity(vx: Double, vy: Double, heading: Double): Pair<Double, Double> {
     val cos = cos(-heading)
     val sin = sin(-heading)
 
