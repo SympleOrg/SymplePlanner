@@ -30,18 +30,31 @@ abstract class TrajectoryManager(val name: String) {
             throw RuntimeException("Trajectory is not initialized");
         }
 
-        val currentTrajectoryState =  trajectory[headIdx];
+        if (trajectory.size == headIdx) {
+            // This is the end of the trajectory
+            // TODO: better
+            driveTrain.setPower(DoubleArray(4))
+            return;
+        }
+
+        val currentTrajectoryState = trajectory[headIdx];
 
         val wheelSpeeds = process(currentPos, currentTrajectoryState);
 
         driveTrain.setPower(wheelSpeeds)
 
-        if (true) { // Todo fix iteration logic.
+        // TODO: add tolerance constant
+        if (isNearState(currentTrajectoryState, currentPos, 0.01)) {
             headIdx += 1;
         }
     }
 
-    open fun process(pos: Pose2d, trajectoryState: TrajectoryState): DoubleArray{
+    protected fun isNearState(state: TrajectoryState, currentPosition: Pose2d, tolerance: Double = 0.01): Boolean {
+        return state.pose2d == null
+                || state.pose2d.position.distanceTo(currentPosition.position) <= tolerance;
+    }
+
+    open fun process(pos: Pose2d, trajectoryState: TrajectoryState): DoubleArray {
         val desiredPos = trajectoryState.pose2d ?: return DoubleArray(4);
 
         val errorX = desiredPos.position.x - pos.position.x;
