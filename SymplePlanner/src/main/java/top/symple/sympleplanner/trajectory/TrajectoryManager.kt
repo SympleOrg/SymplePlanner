@@ -49,7 +49,7 @@ abstract class TrajectoryManager(val name: String) {
         }
     }
 
-    open fun process(pos: Pose2d, trajectoryState: TrajectoryState): DoubleArray {
+    protected open fun process(pos: Pose2d, trajectoryState: TrajectoryState): DoubleArray {
         val desiredPos = trajectoryState.pose2d ?: return DoubleArray(4);
 
         val errorX = desiredPos.position.x - pos.position.x;
