@@ -11,8 +11,7 @@ fun mecanumWheelSpeeds(vx: Double, vy: Double, omega: Double): DoubleArray {
         val bl = vx - vy + omega
         val br = vx + vy - omega
 
-        // Optional: normalize to keep values in [-1, 1]
-        val max = listOf(fl, fr, bl, br).map { abs(it) }.maxOrNull()!!
+        val max = listOf(fl, fr, bl, br).maxOf { abs(it) }
         val scale = if (max > 1.0) 1.0 / max else 1.0
 
         return doubleArrayOf(fl, fr, bl, br).map { it * scale }.toDoubleArray()
