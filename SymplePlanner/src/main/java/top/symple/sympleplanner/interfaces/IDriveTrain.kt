@@ -9,5 +9,5 @@ interface IDriveTrain {
      *
      * @param power Array of motor powers.
      */
-    fun setPower(power: IntArray);
+    fun setPower(power: DoubleArray);
 }
