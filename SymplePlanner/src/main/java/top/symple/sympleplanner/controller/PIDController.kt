@@ -26,14 +26,14 @@ class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Do
     var tolerance: Double = tolerance
         set(value) {
             if (value < 0) {
-                throw RuntimeException("[PIDController] Tolerance must be equal to or greater than zero.")
+                throw IllegalArgumentException("[PIDController] Tolerance must be equal to or greater than zero.")
             }
             field = value;
         };
 
     init {
         if (tolerance < 0) {
-            throw RuntimeException("[PIDController] Tolerance must be equal to or greater than zero.")
+            throw IllegalArgumentException("[PIDController] Tolerance must be equal to or greater than zero.")
         }
     }
 
