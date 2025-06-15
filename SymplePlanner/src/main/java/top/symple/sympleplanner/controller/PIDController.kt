@@ -12,7 +12,7 @@ import kotlin.math.abs
  * @property setPoint Desired target value the controller will try to achieve
  * @property tolerance Acceptable error range for determining if at set point
  */
-class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Double, var tolerance: Double = 1e-3) {
+class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Double, tolerance: Double = 1e-3) {
 
     /**
      * The target value for the controller.
@@ -22,6 +22,20 @@ class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Do
             lastError = value - lastMeasure;
             field = value;
         };
+
+    var tolerance: Double = tolerance
+        set(value) {
+            if (value < 0) {
+                throw RuntimeException("[PIDController] Tolerance must be equal to or greater than zero.")
+            }
+            field = value;
+        };
+
+    init {
+        if (tolerance < 0) {
+            throw RuntimeException("[PIDController] Tolerance must be equal to or greater than zero.")
+        }
+    }
 
     private var lastCalcTime: Long = 0;
     private var lastError: Double = 0.0;
