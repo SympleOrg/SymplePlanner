@@ -66,6 +66,18 @@ class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Do
     }
 
     /**
+     * Calculates the PID output using the provided set point and measured value.
+     *
+     * @param measured The current measured value.
+     * @param setPoint The new desired set point.
+     * @return The calculated PID output.
+     */
+    fun calculate(measured: Double, setPoint: Double): Double {
+        this.setPoint = setPoint;
+        return calculate(measured);
+    }
+
+    /**
      * Resets the PID controller's internal state (integral, last error, timing).
      * Useful when the system being controlled has changed or restarted.
      */
@@ -82,6 +94,13 @@ class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Do
      * @return True if the absolute error is less than tolerance, false otherwise
      */
     fun atSetPoint(): Boolean = abs(lastError) < tolerance;
+
+    /**
+     * Returns the most recent error value (set point - measured value).
+     *
+     * @return The last computed error.
+     */
+    fun getError() = lastError;
 
     /**
      * Sets the allowable range for the integral term to avoid windup.
