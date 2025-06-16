@@ -25,16 +25,12 @@ class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Do
 
     var tolerance: Double = tolerance
         set(value) {
-            if (value < 0) {
-                throw IllegalArgumentException("[PIDController] Tolerance must be equal to or greater than zero.")
-            }
+            require(value >= 0) { "[PIDController] Tolerance must be equal to or greater than zero." }
             field = value;
         };
 
     init {
-        if (tolerance < 0) {
-            throw IllegalArgumentException("[PIDController] Tolerance must be equal to or greater than zero.")
-        }
+        require(tolerance >= 0) { "[PIDController] Tolerance must be equal to or greater than zero." }
     }
 
     private var lastCalcTime: Long = 0;
