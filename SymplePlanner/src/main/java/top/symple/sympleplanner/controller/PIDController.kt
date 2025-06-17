@@ -47,11 +47,14 @@ class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Do
 
     /**
      * Calculates the control output based on the current measured value.
+     * Applies clamping to the output using the provided output limits.
      *
      * @param measured The current process variable (measurement)
+     * @param minOutput The minimum allowed output value. Default is -1.0.
+     * @param maxOutput The maximum allowed output value. Default is 1.0.
      * @return The computed PID output
      */
-    fun calculate(measured: Double): Double {
+    fun calculate(measured: Double, minOutput: Double = -1.0, maxOutput: Double = 1.0): Double {
         var currentTime = System.nanoTime();
         if(lastCalcTime == 0L) {
             lastCalcTime = currentTime;
@@ -72,19 +75,22 @@ class PIDController(var kP: Double, var kI: Double, var kD: Double, setPoint: Do
         lastError = error;
         lastMeasure = measured;
 
-        return kP * error + kI * integral + kD * derivative;
+        return (kP * error + kI * integral + kD * derivative).coerceIn(minOutput, maxOutput);
     }
 
     /**
      * Calculates the PID output using the provided set point and measured value.
+     * Applies clamping to the output using the provided output limits.
      *
      * @param measured The current measured value.
      * @param setPoint The new desired set point.
+     * @param minOutput The minimum allowed output value. Default is -1.0.
+     * @param maxOutput The maximum allowed output value. Default is 1.0.
      * @return The calculated PID output.
      */
-    fun calculate(measured: Double, setPoint: Double): Double {
+    fun calculate(measured: Double, setPoint: Double, minOutput: Double = -1.0, maxOutput: Double = 1.0): Double {
         this.setPoint = setPoint;
-        return calculate(measured);
+        return calculate(measured, minOutput, maxOutput);
     }
 
     /**
